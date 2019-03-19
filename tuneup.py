@@ -32,18 +32,9 @@ def read_movies(src):
 @profile
 def find_duplicate_movies(src):
     """Returns a list of duplicate movies from a src list"""
-
     movies = read_movies(src)
-    duplicates = []
-    mv_d = {}
-    # return set([movie for movie in movies if movies.count(movie) > 1])
-
-    for movie in movies:
-        if movie in mv_d:
-            duplicates.append(movie)
-        else:
-            mv_d[movie] = ''
-    return duplicates
+    movies.sort()
+    return [m1 for m1, m2 in zip(movies[1:], movies[:-1]) if m1 == m2]
 
 
 def timeit_helper():
