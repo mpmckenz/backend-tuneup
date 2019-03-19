@@ -7,7 +7,6 @@ __author__ = "Michael McKenzie"
 import cProfile
 import pstats
 import timeit
-from random import choice
 
 
 def profile(func):
