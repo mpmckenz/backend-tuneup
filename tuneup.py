@@ -7,11 +7,11 @@ __author__ = "Michael McKenzie"
 import cProfile
 import pstats
 import timeit
+from random import choice
 
 
 def profile(func):
     """A function that can be used as a decorator to measure performance"""
-    # cProfile.run(pr_func)
     def profile_function(*args, **kwargs):
         pr = cProfile.Profile()
         pr.enable()
@@ -30,28 +30,21 @@ def read_movies(src):
         return f.read().splitlines()
 
 
-def is_duplicate(title, movies):
-    """Case insensitive search within a list"""
-    for movie in movies:
-        if movie.lower() == title.lower():
-            return True
-    return False
-
-
 @profile
 def find_duplicate_movies(src):
     """Returns a list of duplicate movies from a src list"""
+
     movies = read_movies(src)
     duplicates = []
-    return set([movie for movie in movies if movies.count(movie) > 1])
+    mv_d = {}
+    # return set([movie for movie in movies if movies.count(movie) > 1])
 
-    # mv_d = {}
-    # for movie in movies:
-    #     if movie in mv_d:
-    #         duplicates.append(movie)
-    #     else:
-    #         mv_d[movie] = ''
-    # return duplicates
+    for movie in movies:
+        if movie in mv_d:
+            duplicates.append(movie)
+        else:
+            mv_d[movie] = ''
+    return duplicates
 
 
 def timeit_helper():
@@ -69,5 +62,4 @@ def main():
 
 
 if __name__ == '__main__':
-    timeit_helper()
     main()
